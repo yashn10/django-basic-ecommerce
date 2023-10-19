@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-12 col-lg-8 mb-4 mb-lg-0">
+                <div class="card">
+                    <div class="d-flex justify-content-between p-3">
+                        <p class="lead mb-0">Today's Combo Offer</p>
+                        <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                            style="width: 35px; height: 35px;">
+                            <p class="text-white mb-0 small">x4</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <img src="{{product.image}}" class="card-img-top w-50" alt="Laptop" />
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <p class="big"><a href="#!" class="text-muted">{{product.category}}</a></p>
+                            <p class="small text-danger"><s>{{product.price}}</s></p>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="mb-0">{{product.name}}</h5>
+                            <h5 class="text-dark mb-0">{{product.price}}</h5>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2" style="align-items: center;">
+                            <p class="text-muted mb-0">Available: <span class="fw-bold">6</span></p>
+                            <div>
+                                <button type="submit" class="btn btn-outline-success">Buy Now</button>
+                                <button type="submit" class="btn btn-outline-primary cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</section>
+
+{% endblock body %}
+
+
+{% block js %}
+
+<script>
+
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    }
+
+    $('.cart').click(function () {
+        var id = this.id.toString();
+
+        if (cart[id] != undefined) {
+            cart[id] = cart[id] + 1;
+        } else {
+            cart[id] = 1;
+        }
+        console.log(cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    });
+
+</script>
+
+{% endblock js %}
